@@ -42,7 +42,6 @@ var virtualMachinePublicIpAddressName = 'pip-end2end-virtualmachine'
 var virtualMachineSku = 'Standard_D2s_v5'
 var virtualNetworkName = 'vnet-end2end-01'
 var virtualNetworkPrefix = '10.0.0.0/16'
-// var wafPolicyName = 'waf-end2end'
 
 // Existing Resources
 //////////////////////////////////////////////////

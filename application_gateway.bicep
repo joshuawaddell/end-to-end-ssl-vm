@@ -25,9 +25,6 @@ param certificateName string
 @description('The location for all resources.')
 param location string
 
-// @description('The name of the waf policy.')
-// param wafPolicyName string
-
 @description('The host name of web application 1.')
 param webApp1HostName string
 
@@ -46,13 +43,6 @@ resource applicationGatewayPublicIpAddress 'Microsoft.Network/publicIPAddresses@
     name: 'Standard'
   }
 }
-
-// Resource - WAF Policy
-//////////////////////////////////////////////////
-// resource wafPolicy 'Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies@2022-01-01' = {
-//   name: wafPolicyName
-//   location: location
-// }
 
 // Resource - Application Gateway
 //////////////////////////////////////////////////
