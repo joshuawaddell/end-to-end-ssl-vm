@@ -18,7 +18,7 @@ param certificateData string
 
 @description('The password of the ssl certificate (stored in keyvault.)')
 @secure()
-param certificateDataPassword string
+param certificatePassword string
 
 @description('The name of the ssl certificate (stored in keyvault).')
 param certificateName string
@@ -62,7 +62,7 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
         name: certificateName
         properties: {
           data: certificateData
-          password: certificateDataPassword
+          password: certificatePassword
         }
       }
     ]

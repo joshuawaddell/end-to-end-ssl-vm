@@ -9,7 +9,7 @@ param adminUserName string
 
 @description('The password of the certificate.')
 @secure()
-param certificateDataPassword string
+param certificatePassword string
 
 @description('The name of the custom domain.')
 param domainName string
@@ -23,25 +23,27 @@ param location string = resourceGroup().location
 @description('The name of the managed identity.')
 param managedIdentityName string
 
+@description('The name of the resource group.')
+param resourceGroupName string
+
 // Variables
 //////////////////////////////////////////////////
-var applicationGatewayName = 'appGw-end2end-01'
-var applicationGatewayPublicIpAddressName = 'pip-end2end-applicationgateway'
-var applicationGatewaySubnetName = 'snet-end2end-applicationgateway'
+var applicationGatewayName = 'appGw-end2endsslvm-01'
+var applicationGatewayPublicIpAddressName = 'pip-end2endsslvm-applicationgateway'
+var applicationGatewaySubnetName = 'snet-end2endsslvm-applicationgateway'
 var applicationGatewaySubnetPrefix = '10.0.0.0/24'
-var networkSecurityGroupName = 'nsg-end2end-virtualmachine'
+var networkSecurityGroupName = 'nsg-end2endsslvm-virtualmachine'
 var operatingSystemVersion = '2022-datacenter-smalldisk'
-var resourceGroupName = 'rg-end2end'
 var scriptLocation = 'https://raw.githubusercontent.com/Azure/azure-docs-json-samples/master/tutorial-vm-extension/installWebServer.ps1'
 var scriptName = 'installWebServer.ps1'
-var virtualMachineSubnetName = 'snet-end2end-virtualmachine'
+var virtualMachineSubnetName = 'snet-end2endsslvm-virtualmachine'
 var virtualMachineSubnetPrefix = '10.0.1.0/24'
-var virtualMachineName = 'vm-end2end-01'
-var virtualMachineNicName = 'nic-end2end-virtualmachine'
-var virtualMachineOsDiskName = 'disk-end2end-virtualmachine'
-var virtualMachinePublicIpAddressName = 'pip-end2end-virtualmachine'
+var virtualMachineName = 'vm-end2endsslvm'
+var virtualMachineNicName = 'nic-end2endsslvm-virtualmachine'
+var virtualMachineOsDiskName = 'disk-end2endsslvm-virtualmachine'
+var virtualMachinePublicIpAddressName = 'pip-end2endsslvm-virtualmachine'
 var virtualMachineSku = 'Standard_D2s_v5'
-var virtualNetworkName = 'vnet-end2end-01'
+var virtualNetworkName = 'vnet-end2endsslvm-01'
 var virtualNetworkPrefix = '10.0.0.0/16'
 
 // Existing Resources
@@ -120,10 +122,9 @@ module applicationGatewayModule 'application_gateway.bicep' = {
     applicationGatewayPublicIpAddressName: applicationGatewayPublicIpAddressName
     applicationGatewaySubnetId: virtualNetworkModule.outputs.applicationGatewaySubnetId
     certificateData: keyVault.getSecret('certificate')
-    certificateDataPassword: certificateDataPassword
+    certificatePassword: certificatePassword
     certificateName: domainName
     location: location
-    // wafPolicyName: wafPolicyName
     webApp1HostName: 'webapp1.${domainName}'
     webApp2HostName: 'webapp2.${domainName}'
   }
