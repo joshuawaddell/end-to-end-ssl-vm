@@ -49,3 +49,9 @@ _*Note: Some Azure Resources, such as Key Vault, require globally unique names a
 ## Postrequisites
 
 ### Internet Information Services Configuration
+
+Insert text here
+
+### DNS Update
+
+Insert text here
