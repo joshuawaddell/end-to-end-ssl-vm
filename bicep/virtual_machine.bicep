@@ -1,6 +1,7 @@
 // Parameters
 //////////////////////////////////////////////////
 @description('The password of the administrator account.')
+@secure()
 param adminPassword string
 
 @description('The user name of the administrator account.')

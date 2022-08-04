@@ -8,6 +8,7 @@ param adminPassword string
 param adminUserName string
 
 @description('The password of the certificate.')
+@secure()
 param certificateDataPassword string
 
 @description('The name of the custom domain.')

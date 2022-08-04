@@ -17,6 +17,7 @@ param applicationGatewaySubnetId string
 param certificateData string
 
 @description('The password of the ssl certificate (stored in keyvault.)')
+@secure()
 param certificateDataPassword string
 
 @description('The name of the ssl certificate (stored in keyvault).')
