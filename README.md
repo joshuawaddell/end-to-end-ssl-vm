@@ -131,4 +131,11 @@ To create the HTTPS Bindings for the Web Applications:
 
 ### DNS Update
 
-Insert text here
+This example scenario requires post-deployment configuration of DNS. After successful deployment, perform the following:
+
+1. Log in to the Azure portal
+2. In the Search bar, search for the Application Gateway (e.g. appGw-end2endsslvm-01), and select it
+3. From the Overview blade, make note of the Frontend public IP address
+4. From your DNS hosting provider create two A record entries for:
+   1. webapp1.mydomain.com pointing to the Application Gateway public IP address
+   2. webapp2.mydomain.com pointing to the Application Gateway public IP address
