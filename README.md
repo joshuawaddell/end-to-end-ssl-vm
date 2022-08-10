@@ -50,14 +50,49 @@ _*Note: Some Azure Resources, such as Key Vault, require globally unique names a
 
 ### Internet Information Services Configuration
 
+This example scenario requires post-deployment configuration of Internet Information Services. After successful deployment, perform the following:
+
+- Install the PFX Certificate
+- Create HTTPS Bindings
+- Set default document
+- Update index.html
+
 #### Certificate Installation
 
 To install the PFX Certificate to the Internet Information Server:
 
-1. From Windows Administrative Tools, open Internet Information Services (IIS) Manager
-2. Select the IIS Server (vm-end2endsslvm), and open the Server Certificates Feature
+1. Open a Remote Desktop Connection (RDP) to the server
+2. Copy the PFX Certificate to the server
+3. From Windows Administrative Tools, open Internet Information Services (IIS) Manager
+4. Select the IIS Server, vm-end2endsslvm, and open the Server Certificates Feature
 
-![Alt text](https://raw.githubusercontent.com/joshuawaddell/end-to-end-ssl-vm/main/images/iis_manager_server_certificates_1.jpg "a title")
+    ![Alt text](https://raw.githubusercontent.com/joshuawaddell/end-to-end-ssl-vm/main/images/iis_manager_server_certificates_1.jpg "Server Certificates Feature")
+
+5. From the Server Certificates Feature, click Import
+6. From the Import Certificate window, select the Certificate file, enter the password, and click OK
+
+    ![Alt text](https://raw.githubusercontent.com/joshuawaddell/end-to-end-ssl-vm/main/images/iis_manager_server_certificates_2.jpg "Import Certificate")
+
+#### Create HTTPS Bindings
+
+To create the HTTPS Bindings for the Web Applications:
+
+1. Open a Remote Desktop Connection (RDP) to the server
+2. Copy the PFX Certificate to the server
+3. From Windows Administrative Tools, open Internet Information Services (IIS) Manager
+4. Expand Sites and select webApp1
+5. From Actions, select Bindings
+6. From the Site Bindings window, click Add
+7. From the Add Site Binding window:
+   1. Select HTTPS as the Type
+   2. Select All Unassigned as the IP address
+   3. Verify 443 as the Port
+   4. In the Host name field enter the host name for the Web Application (e.g. webapp1.yourdomain.com)
+   5. From SSL certificate pull down menu, select the certificate installed in the previous step, and click OK
+
+        ![Alt text](https://raw.githubusercontent.com/joshuawaddell/end-to-end-ssl-vm/main/images/iis_manager_server_certificates_3.jpg "Add Site Binding")
+
+8. Repeat these steps for webApp2
 
 ### DNS Update
 
