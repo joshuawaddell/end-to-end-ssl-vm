@@ -78,12 +78,11 @@ To install the PFX Certificate to the Internet Information Server:
 To create the HTTPS Bindings for the Web Applications:
 
 1. Open a Remote Desktop Connection (RDP) to the server
-2. Copy the PFX Certificate to the server
-3. From Windows Administrative Tools, open Internet Information Services (IIS) Manager
-4. Expand Sites and select webApp1
-5. From Actions, select Bindings
-6. From the Site Bindings window, click Add
-7. From the Add Site Binding window:
+2. From Windows Administrative Tools, open Internet Information Services (IIS) Manager
+3. Expand Sites and select webApp1
+4. From Actions, select Bindings
+5. From the Site Bindings window, click Add
+6. From the Add Site Binding window:
    1. Select HTTPS as the Type
    2. Select All Unassigned as the IP address
    3. Verify 443 as the Port
@@ -92,7 +91,43 @@ To create the HTTPS Bindings for the Web Applications:
 
         ![Alt text](https://raw.githubusercontent.com/joshuawaddell/end-to-end-ssl-vm/main/images/iis_manager_server_certificates_3.jpg "Add Site Binding")
 
-8. Repeat these steps for webApp2
+7. Repeat these steps for webApp2
+
+#### Set Default Document
+
+1. Open a Remote Desktop Connection (RDP) to the server
+2. From Windows Administrative Tools, open Internet Information Services (IIS) Manager
+3. Expand Sites and select webApp1
+4. Select Default Document
+5. From the Default Document Feature, select Index.html
+6. From Actions, select Move Up
+7. A message window will appear regarding the list order. Click Yes
+8. From Actions, select Move Up until index.html is at the top of the list
+
+    ![Alt text](https://raw.githubusercontent.com/joshuawaddell/end-to-end-ssl-vm/main/images/iis_manager_server_default_document_1.jpg "Default Document")
+
+9. Repeat these steps for webApp2
+
+#### Update Index.html
+
+1. Open a Remote Desktop Connection (RDP) to the server
+2. Open File Explorer and navigate to C:\inetpub\wwwroot\webapp1
+3. Right-click index.html, select Open with, and select Choose another app
+4. From the How do you want to opn this file window, select More apps, select Notepad, and click OK
+5. Copy the following code to Notepad:
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+        <body>
+        <h1>webApp1</h1>
+        <p>Welcome to webApp1!</p>
+        </body>
+    </html>
+    ```
+
+6. From Notepad, select File, and click Save
+7. Repeat these steps for webApp2
 
 ### DNS Update
 
