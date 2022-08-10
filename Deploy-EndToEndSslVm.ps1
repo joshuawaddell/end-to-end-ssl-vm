@@ -1,15 +1,26 @@
 # Parameters
 param(
-    [String] $location=$(Read-Host -prompt "Enter the Azure Region for deployment. (Example: eastus)"),
-    [String] $resourceGroupName=$(Read-Host -prompt "Enter the name of the Azure Resource Group for deployment. (Example: rg-end2endsslvm)"),
-    [String] $keyVaultName=$(Read-Host -prompt "Enter the name of the Azure Key Vault. (Example: kv-end2endsslvm)"),
-    [String] $managedIdentityName=$(Read-Host -prompt "Enter the name of the Azure Managed Identity. (Example: id-end2endsslvm)"),
-    [String] $pfxCertificatePath=$(Read-Host -prompt "Enter the path to the PFX Certificate. (Example: 'C:\certificates\wildcard.pfx')"),
-    [SecureString] $certificatePassword=$(Read-Host -prompt "Enter the password to the PFX Certificate" -AsSecureString),
-    [String] $base64Path=$(Read-Host -prompt "Enter the path to the Base64 Certificate export. (Example: 'C:\certificates\wildcard.txt')"),
-    [SecureString] $adminPassword=$(Read-Host -prompt "Enter he password to the Virtual Machine Administrator user." -AsSecureString),
-    [String] $adminUserName=$(Read-Host -prompt "Enter the name of the Administrator user. (Example: resourceadmin)"),
-    [String] $domainName=$(Read-Host -prompt "Enter the name of the Cusotm Domain. (Example: mydomain.com)")
+    [String] $location='eastus',
+    [String] $resourceGroupName='rg-end2endsslvm',
+    [String] $keyVaultName='kv-6574839201',
+    [String] $managedIdentityName='id-end2endsslvm-applicationgateway',
+    [String] $pfxCertificatePath='C:\Users\joshu\downloads\wildcard.pfx',
+    [SecureString] $certificatePassword=$(Read-Host -prompt "Enter the password for the pfx certificate" -AsSecureString),
+    [String] $base64Path='C:\Users\joshu\downloads\base64.txt',
+    [SecureString] $adminPassword=$(Read-Host -prompt "Enter the password for Azure Resources" -AsSecureString),
+    [String] $adminUserName='serveradmin',
+    [String] $domainName='joshuawaddell.cloud'
+
+    # [String] $location=$(Read-Host -prompt "Enter the Azure Region for deployment. (Example: eastus)"),
+    # [String] $resourceGroupName=$(Read-Host -prompt "Enter the name of the Azure Resource Group for deployment. (Example: rg-end2endsslvm)"),
+    # [String] $keyVaultName=$(Read-Host -prompt "Enter the name of the Azure Key Vault. (Example: kv-end2endsslvm)"),
+    # [String] $managedIdentityName=$(Read-Host -prompt "Enter the name of the Azure Managed Identity. (Example: id-end2endsslvm)"),
+    # [String] $pfxCertificatePath=$(Read-Host -prompt "Enter the path to the PFX Certificate. (Example: 'C:\certificates\wildcard.pfx')"),
+    # [SecureString] $certificatePassword=$(Read-Host -prompt "Enter the password to the PFX Certificate" -AsSecureString),
+    # [String] $base64Path=$(Read-Host -prompt "Enter the path to the Base64 Certificate export. (Example: 'C:\certificates\wildcard.txt')"),
+    # [SecureString] $adminPassword=$(Read-Host -prompt "Enter he password to the Virtual Machine Administrator user." -AsSecureString),
+    # [String] $adminUserName=$(Read-Host -prompt "Enter the name of the Administrator user. (Example: resourceadmin)"),
+    # [String] $domainName=$(Read-Host -prompt "Enter the name of the Cusotm Domain. (Example: mydomain.com)")
     )
 
 # Variables
@@ -38,4 +49,4 @@ $managedIdentitySpnId = az identity show -g $resourceGroupName -n $managedIdenti
 az keyvault set-policy -g $resourceGroupName -n $keyVaultName --object-id $managedIdentitySpnId --secret-permissions get
 
 # Deploy Azure Resources
-az deployment group create -g $resourceGroupName -f ./main.bicep --parameters adminPassword=$adminPassword adminUserName=$adminUserName certificatePassword=$certificatePasswordPlainText domainName=$domainName keyVaultName=$keyVaultName location=$location managedIdentityName=$managedIdentityName resourceGroupName=$resourceGroupName
+az deployment group create -g $resourceGroupName -f bicep\main.bicep --parameters adminPassword=$adminPassword adminUserName=$adminUserName certificatePassword=$certificatePasswordPlainText domainName=$domainName keyVaultName=$keyVaultName location=$location managedIdentityName=$managedIdentityName resourceGroupName=$resourceGroupName

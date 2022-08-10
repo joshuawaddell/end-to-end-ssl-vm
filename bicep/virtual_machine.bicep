@@ -37,6 +37,18 @@ param virtualMachineSubnetId string
 @description('The sku of the virtual machine.')
 param virtualMachineSku string
 
+@description('The host name of web application 1.')
+param webApp1HostName string
+
+@description('The name of web application 1.')
+param webApp1Name string
+
+@description('The host name of web application 2.')
+param webApp2HostName string
+
+@description('The name of web application 2.')
+param webApp2Name string
+
 // Resource - Public Ip Address - Virtual Machine
 //////////////////////////////////////////////////
 resource virtualMachinePublicIpAddress 'Microsoft.Network/publicIPAddresses@2022-01-01' = {
@@ -129,7 +141,7 @@ resource virtualMachineCustomScriptExtension 'Microsoft.Compute/virtualMachines/
       ]
     }
     protectedSettings: {
-      commandToExecute: 'powershell.exe -ExecutionPolicy Unrestricted -File ${scriptName}'
+      commandToExecute: 'powershell.exe -ExecutionPolicy Unrestricted -File ${scriptName} "${webApp1Name}" "${webApp1HostName}" "${webApp2Name}" "${webApp2HostName}"'
     }
   }
 }

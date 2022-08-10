@@ -45,6 +45,10 @@ var virtualMachinePublicIpAddressName = 'pip-end2endsslvm-virtualmachine'
 var virtualMachineSku = 'Standard_D2s_v5'
 var virtualNetworkName = 'vnet-end2endsslvm-01'
 var virtualNetworkPrefix = '10.0.0.0/16'
+var webApp1HostName = '${webApp1Name}.${domainName}'
+var webApp1Name = 'webapp1'
+var webApp2HostName = '${webApp2Name}.${domainName}'
+var webApp2Name = 'webapp2'
 
 // Existing Resources
 //////////////////////////////////////////////////
@@ -109,6 +113,10 @@ module virtualMachineModule 'virtual_machine.bicep' = {
     virtualMachinePublicIpAddressName: virtualMachinePublicIpAddressName
     virtualMachineSku: virtualMachineSku
     virtualMachineSubnetId: virtualNetworkModule.outputs.virtualMachineSubnetId
+    webApp1HostName: webApp1HostName
+    webApp1Name: webApp1Name
+    webApp2HostName: webApp2HostName
+    webApp2Name: webApp2Name
   }
 }
 
@@ -125,8 +133,8 @@ module applicationGatewayModule 'application_gateway.bicep' = {
     certificatePassword: certificatePassword
     certificateName: domainName
     location: location
-    webApp1HostName: 'webapp1.${domainName}'
-    webApp2HostName: 'webapp2.${domainName}'
+    webApp1HostName: webApp1HostName
+    webApp2HostName: webApp2HostName
   }
 }
 
