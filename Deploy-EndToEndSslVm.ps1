@@ -1,9 +1,9 @@
 # Parameters
 param(
     [String] $location=$(Read-Host -prompt "Enter the Azure Region for deployment. (Example: eastus)"),
-    [String] $resourceGroupName=$(Read-Host -prompt "Enter the name of the Azure Resource Group for deployment. (Example: rg-end2endsslvm)"),
-    [String] $keyVaultName=$(Read-Host -prompt "Enter the name of the Azure Key Vault. (Example: kv-end2endsslvm)"),
-    [String] $managedIdentityName=$(Read-Host -prompt "Enter the name of the Azure Managed Identity. (Example: id-end2endsslvm)"),
+    [String] $resourceGroupName=$(Read-Host -prompt "Enter the name of the Azure Resource Group for deployment. (Example: rg-e2esslvm)"),
+    [String] $keyVaultName=$(Read-Host -prompt "Enter the name of the Azure Key Vault. (Example: kv-e2esslvm)"),
+    [String] $managedIdentityName=$(Read-Host -prompt "Enter the name of the Azure Managed Identity. (Example: id-e2esslvm)"),
     [String] $pfxCertificatePath=$(Read-Host -prompt "Enter the path to the PFX Certificate. (Example: 'C:\certificates\wildcard.pfx')"),
     [SecureString] $certificatePassword=$(Read-Host -prompt "Enter the password to the PFX Certificate" -AsSecureString),
     [String] $base64Path=$(Read-Host -prompt "Enter the path to the Base64 Certificate export. (Example: 'C:\certificates\wildcard.txt')"),
