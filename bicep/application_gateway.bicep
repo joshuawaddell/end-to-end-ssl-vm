@@ -88,6 +88,12 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
     ]
     frontendPorts: [
       {
+        name: 'port_80'
+        properties: {
+          port: 80
+        }
+      }
+      {
         name: 'port_443'
         properties: {
           port: 443
@@ -130,7 +136,21 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
     ]    
     httpListeners: [
       {
-        name: 'listener-${webApp1HostName}'
+        name: 'listener-${webApp1HostName}-http'
+        properties: {
+          frontendIPConfiguration: {
+            id: resourceId('Microsoft.Network/applicationGateways/frontendIPConfigurations', applicationGatewayName, 'frontendIpConfiguration')
+          }
+          frontendPort: {
+            id: resourceId('Microsoft.Network/applicationGateways/frontendPorts', applicationGatewayName, 'port_80')
+          }
+          protocol: 'Http'
+          hostName: webApp1HostName
+          requireServerNameIndication: false
+        }
+      }
+      {
+        name: 'listener-${webApp1HostName}-https'
         properties: {
           frontendIPConfiguration: {
             id: resourceId('Microsoft.Network/applicationGateways/frontendIPConfigurations', applicationGatewayName, 'frontendIpConfiguration')
@@ -147,7 +167,21 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
         }
       }
       {
-        name: 'listener-${webApp2HostName}'
+        name: 'listener-${webApp2HostName}-http'
+        properties: {
+          frontendIPConfiguration: {
+            id: resourceId('Microsoft.Network/applicationGateways/frontendIPConfigurations', applicationGatewayName, 'frontendIpConfiguration')
+          }
+          frontendPort: {
+            id: resourceId('Microsoft.Network/applicationGateways/frontendPorts', applicationGatewayName, 'port_80')
+          }
+          protocol: 'Http'
+          hostName: webApp2HostName
+          requireServerNameIndication: false
+        }
+      }
+      {
+        name: 'listener-${webApp2HostName}-https'
         properties: {
           frontendIPConfiguration: {
             id: resourceId('Microsoft.Network/applicationGateways/frontendIPConfigurations', applicationGatewayName, 'frontendIpConfiguration')
@@ -161,6 +195,26 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
           }
           hostName: webApp2HostName
           requireServerNameIndication: false
+        }
+      }
+    ]
+    redirectConfigurations: [
+      {
+        name: 'redirectConfiguration-${webApp1HostName}'
+        properties: {
+          redirectType: 'Permanent'
+          targetListener: {
+            id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'listener-${webApp1HostName}-https')
+          }
+        }
+      }
+      {
+        name: 'redirectConfiguration-${webApp2HostName}'
+        properties: {
+          redirectType: 'Permanent'
+          targetListener: {
+            id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'listener-${webApp2HostName}-https')
+          }
         }
       }
     ]
@@ -182,6 +236,18 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
         }
       }
       {
+        name: 'routingRule-${webApp1HostName}-redirection'
+        properties: {
+          ruleType: 'Basic'
+          httpListener: {
+            id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'listener-${webApp1HostName}-http')
+          }
+          redirectConfiguration: {
+            id: resourceId('Microsoft.Network/applicationGateways/redirectConfigurations', applicationGatewayName, 'redirectConfiguration-${webApp1HostName}')
+          }
+        }
+      }
+      {
         name: 'routingRule-${webApp2HostName}'
         properties: {
           ruleType: 'Basic'
@@ -194,6 +260,18 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
           }
           backendHttpSettings: {
             id: resourceId('Microsoft.Network/applicationGateways/backendHttpSettingsCollection', applicationGatewayName, 'httpSetting-${webApp2HostName}')
+          }
+        }
+      }
+      {
+        name: 'routingRule-${webApp2HostName}-redirection'
+        properties: {
+          ruleType: 'Basic'
+          httpListener: {
+            id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'listener-${webApp2HostName}-http')
+          }
+          redirectConfiguration: {
+            id: resourceId('Microsoft.Network/applicationGateways/redirectConfigurations', applicationGatewayName, 'redirectConfiguration-${webApp2HostName}')
           }
         }
       }

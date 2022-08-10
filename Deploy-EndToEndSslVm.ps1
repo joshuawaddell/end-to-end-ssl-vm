@@ -21,7 +21,7 @@ az group create -n $resourceGroupName -l $location
 # Create Key Vault
 az keyvault create -g $resourceGroupName -n $KeyVaultName --sku standard --enabled-for-deployment true --enabled-for-template-deployment true --enabled-for-disk-encryption true --enable-purge-protection true --retention-days 7
 
-# Convert Secure Password into Plain Text
+# Convert Certificate Password into Plain Text
 $certificatePasswordPlainText = ConvertFrom-SecureString -SecureString $certificatePassword -AsPlainText
 
 # Convert Certificate from PFX to Base64
@@ -37,5 +37,8 @@ az identity create -g $resourceGroupName -n $managedIdentityName
 $managedIdentitySpnId = az identity show -g $resourceGroupName -n $managedIdentityName --query principalId
 az keyvault set-policy -g $resourceGroupName -n $keyVaultName --object-id $managedIdentitySpnId --secret-permissions get
 
+# Convert Admin Password into Plain Text
+$adminPasswordPlainText = ConvertFrom-SecureString -SecureString $adminPassword -AsPlainText
+
 # Deploy Azure Resources
-az deployment group create -g $resourceGroupName -f bicep\main.bicep --parameters adminPassword=$adminPassword adminUserName=$adminUserName certificatePassword=$certificatePasswordPlainText domainName=$domainName keyVaultName=$keyVaultName location=$location managedIdentityName=$managedIdentityName resourceGroupName=$resourceGroupName
+az deployment group create -g $resourceGroupName -f bicep\main.bicep --parameters adminPassword=$adminPasswordPlainText adminUserName=$adminUserName certificatePassword=$certificatePasswordPlainText domainName=$domainName keyVaultName=$keyVaultName location=$location managedIdentityName=$managedIdentityName resourceGroupName=$resourceGroupName
