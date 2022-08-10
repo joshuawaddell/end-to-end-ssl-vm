@@ -1,6 +1,8 @@
 # Configuring end-to-end TLS with Application Gateway and Internet Information Services
 
-This is a Bicep implementation of <https://techcommunity.microsoft.com/t5/fasttrack-for-azure/walkthrough-configuring-end-to-end-tls-with-application-gateway/ba-p/3269132>
+This example scenario provides a walkthrough of configuring an Application Gateway with multi-site listeners and a wildcard certificate with end-to-end TLS. Application Gateway is a web traffic (HTTP/HTTPS) load balancer and web application firewall that can be used as an ingress solution for a variety of web application backends, including virtual machines.
+
+This example scenario is an automated implementation of [Walkthrough: Configuring end-to-end TLS with Application Gateway and Internet Information Services](https://techcommunity.microsoft.com/t5/fasttrack-for-azure/walkthrough-configuring-end-to-end-tls-with-application-gateway/ba-p/3269132)
 
 ## Prerequisites
 
