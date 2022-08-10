@@ -50,7 +50,14 @@ _*Note: Some Azure Resources, such as Key Vault, require globally unique names a
 
 ### Internet Information Services Configuration
 
-Insert text here
+#### Certificate Installation
+
+To install the PFX Certificate to the Internet Information Server:
+
+1. From Windows Administrative Tools, open Internet Information Services (IIS) Manager
+2. Select the IIS Server (vm-end2endsslvm), and open the Server Certificates Feature
+
+![Alt text](https://raw.githubusercontent.com/joshuawaddell/end-to-end-ssl-vm/main/images/iis_manager_server_certificates_1.png "a title")
 
 ### DNS Update
 
