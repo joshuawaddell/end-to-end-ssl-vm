@@ -125,14 +125,14 @@ module virtualMachineModule 'virtual_machine.bicep' = {
 module applicationGatewayModule 'application_gateway.bicep' = {
   name: 'applicationGatewayDeployment'
   params: {
-    managedIdentityId: managedIdentity.id
     applicationGatewayName: applicationGatewayName
     applicationGatewayPublicIpAddressName: applicationGatewayPublicIpAddressName
     applicationGatewaySubnetId: virtualNetworkModule.outputs.applicationGatewaySubnetId
     certificateData: keyVault.getSecret('certificate')
-    certificatePassword: certificatePassword
     certificateName: domainName
+    certificatePassword: certificatePassword
     location: location
+    managedIdentityId: managedIdentity.id
     webApp1HostName: webApp1HostName
     webApp2HostName: webApp2HostName
   }

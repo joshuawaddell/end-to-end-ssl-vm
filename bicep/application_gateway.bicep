@@ -225,7 +225,7 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
           ruleType: 'Basic'
           priority: 100
           httpListener: {
-            id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'listener-${webApp1HostName}')
+            id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'listener-${webApp1HostName}-https')
           }
           backendAddressPool: {
             id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGatewayName, 'backendpool')
@@ -239,6 +239,7 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
         name: 'routingRule-${webApp1HostName}-redirection'
         properties: {
           ruleType: 'Basic'
+          priority: 200
           httpListener: {
             id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'listener-${webApp1HostName}-http')
           }
@@ -251,9 +252,9 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
         name: 'routingRule-${webApp2HostName}'
         properties: {
           ruleType: 'Basic'
-          priority: 200
+          priority: 300
           httpListener: {
-            id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'listener-${webApp2HostName}')
+            id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'listener-${webApp2HostName}-https')
           }
           backendAddressPool: {
             id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGatewayName, 'backendpool')
@@ -267,6 +268,7 @@ resource applicationGateway 'Microsoft.Network/applicationGateways@2022-01-01' =
         name: 'routingRule-${webApp2HostName}-redirection'
         properties: {
           ruleType: 'Basic'
+          priority: 400
           httpListener: {
             id: resourceId('Microsoft.Network/applicationGateways/httpListeners', applicationGatewayName, 'listener-${webApp2HostName}-http')
           }
