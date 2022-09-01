@@ -1,19 +1,19 @@
 # Parameters
 param(
-    [String] $location = $(Read-Host -prompt "Enter the Azure Region for deployment. (Example: eastus)"),
-    [String] $resourceGroupName = $(Read-Host -prompt "Enter the name of the Azure Resource Group for deployment. (Example: rg-e2esslvm)"),
-    [String] $keyVaultName = $(Read-Host -prompt "Enter the name of the Azure Key Vault. (Example: kv-e2esslvm)"),
-    [String] $managedIdentityName = $(Read-Host -prompt "Enter the name of the Azure Managed Identity. (Example: id-e2esslvm)"),
-    [String] $pfxCertificatePath = $(Read-Host -prompt "Enter the path to the PFX Certificate. (Example: 'C:\certificates\wildcard.pfx')"),
-    [SecureString] $certificatePassword = $(Read-Host -prompt "Enter the password to the PFX Certificate" -AsSecureString),
-    [String] $base64Path = $(Read-Host -prompt "Enter the path to the Base64 Certificate export. (Example: 'C:\certificates\wildcard.txt')"),
-    [SecureString] $adminPassword = $(Read-Host -prompt "Enter he password to the Virtual Machine Administrator user." -AsSecureString),
-    [String] $adminUserName = $(Read-Host -prompt "Enter the name of the Administrator user. (Example: resourceadmin)"),
-    [String] $domainName = $(Read-Host -prompt "Enter the name of the Cusotm Domain. (Example: mydomain.com)")
+  [String] $location='eastus',
+  [String] $resourceGroupName='rg-e2esslvm',
+  [String] $keyVaultName='kv-e2esslvm',
+  [String] $managedIdentityName='id-e2esslvm-applicationgateway',
+  [String] $pfxCertificatePath='C:\Users\joshu\downloads\wildcard.pfx',
+  [SecureString] $certificatePassword=$(Read-Host -prompt "Enter the password for the pfx certificate" -AsSecureString),
+  [String] $base64Path='C:\Users\joshu\downloads\base64.txt',
+  [SecureString] $adminPassword=$(Read-Host -prompt "Enter the password for Azure Resources" -AsSecureString),
+  [String] $adminUserName='serveradmin',
+  [String] $domainName='joshuawaddell.cloud'
 )
 
 # Variables
-$keyVaultSecretName = 'certificate'
+$keyVaultSecretName='certificate'
 
 # Create Resource Group
 az group create -n $resourceGroupName -l $location
