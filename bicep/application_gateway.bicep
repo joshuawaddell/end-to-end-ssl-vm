@@ -1,8 +1,5 @@
 // Parameters
 //////////////////////////////////////////////////
-@description('The resource id of the managed identity.')
-param managedIdentityId string
-
 @description('The name of the application gateway.')
 param applicationGatewayName string
 
@@ -16,15 +13,18 @@ param applicationGatewaySubnetId string
 @secure()
 param certificateData string
 
+@description('The name of the ssl certificate (stored in keyvault).')
+param certificateName string
+
 @description('The password of the ssl certificate (stored in keyvault.)')
 @secure()
 param certificatePassword string
 
-@description('The name of the ssl certificate (stored in keyvault).')
-param certificateName string
-
 @description('The location for all resources.')
 param location string
+
+@description('The resource id of the managed identity.')
+param managedIdentityId string
 
 @description('The host name of web application 1.')
 param webApp1HostName string
